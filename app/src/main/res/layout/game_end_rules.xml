@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/game_end_rules"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Rule 1 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:layout_marginBottom="16dp">
+
+        <!-- Image for Rule 1 -->
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/checkmate"
+            android:scaleType="fitCenter"
+            android:layout_marginEnd="16dp"/>
+
+        <!-- Rule 1 Text -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/game_end_1"
+            android:textSize="16sp"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
+    <!-- Rule 2 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:layout_marginBottom="16dp">
+
+        <!-- Image for Rule 2 -->
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/stalemate"
+            android:scaleType="fitCenter"
+            android:layout_marginEnd="16dp"/>
+
+        <!-- Rule 2 Text -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/game_end_2"
+            android:textSize="16sp"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
+    <!-- Rule 3 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:layout_marginBottom="16dp">
+
+        <!-- Image for Rule 3 -->
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/resign"
+            android:scaleType="fitCenter"
+            android:layout_marginEnd="16dp"/>
+
+        <!-- Rule 3 Text -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/game_end_3"
+            android:textSize="16sp"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
+    <!-- Rule 4 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:layout_marginBottom="16dp">
+
+        <!-- Image for Rule 4 -->
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/draw"
+            android:scaleType="fitCenter"
+            android:layout_marginEnd="16dp"/>
+
+        <!-- Rule 4 Text -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/game_end_4"
+            android:textSize="16sp"
+            android:textColor="#000000"/>
+
+    </LinearLayout>
+
+    <!-- Add more rules with image and text -->
+
+</LinearLayout>

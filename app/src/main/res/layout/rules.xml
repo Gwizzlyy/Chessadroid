@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- ImageViews for each chess piece -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/black_king"
+            android:layout_marginEnd="4dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="50dp"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/black_queen"
+            android:layout_marginEnd="4dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="50dp"/>
+
+        <!-- Add ImageViews for other pieces -->
+
+    </LinearLayout>
+
+    <!-- Buttons for each chess piece -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/king"
+            android:layout_marginEnd="4dp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/queen"
+            android:layout_marginEnd="4dp"/>
+
+        <!-- Add buttons for other pieces -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/black_rook"
+            android:layout_marginEnd="4dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="50dp"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/black_bishop"
+            android:layout_marginEnd="4dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="50dp"/>
+
+        <!-- Add ImageViews for other pieces -->
+
+    </LinearLayout>
+
+    <!-- Buttons for each chess piece -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/rook"
+            android:layout_marginEnd="4dp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/bishop"
+            android:layout_marginEnd="4dp"/>
+
+        <!-- Add buttons for other pieces -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/black_knight"
+            android:layout_marginEnd="4dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="50dp"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/black_pawn"
+            android:layout_marginEnd="4dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="50dp"/>
+
+        <!-- Add ImageViews for other pieces -->
+
+    </LinearLayout>
+
+    <!-- Buttons for each chess piece -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/knight"
+            android:layout_marginEnd="4dp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/pawn"
+            android:layout_marginEnd="4dp"/>
+
+        <!-- Add buttons for other pieces -->
+
+    </LinearLayout>
+
+
+    <!-- Button to show rules on how to start the game -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rules_start_game"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Button to show rules on how to end the game -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rules_end_game"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>
