@@ -61,7 +61,7 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
 
     private fun insertPieces(canvas: Canvas?){
         locationSpecifier(canvas, 0, 0, R.drawable.white_rook)
-        locationSpecifier(canvas, 0, 1, R.drawable.white_pawn)
+        locationSpecifier(canvas, 0, 1, R.drawable.white_pawn)  // TODO: Continue @ 13
     }
 
     private fun locationSpecifier(canvas: Canvas?, column: Int, row: Int, pieceNum: Int){
