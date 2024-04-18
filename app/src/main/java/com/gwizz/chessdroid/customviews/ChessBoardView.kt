@@ -10,6 +10,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import com.gwizz.chessdroid.R
+import com.gwizz.chessdroid.models.ChessModel
 
 class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) {
     private final val initX = 20f
@@ -60,8 +61,19 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     }
 
     private fun insertPieces(canvas: Canvas?){
-        locationSpecifier(canvas, 0, 0, R.drawable.white_rook)
-        locationSpecifier(canvas, 0, 1, R.drawable.white_pawn)  // TODO: Continue @ 13
+        val chessModel = ChessModel()
+        chessModel.reset()
+
+        for (row in 0..7){
+            for (column in 0..7){
+                val piece = chessModel.localise(column, row)
+                if (piece != null){
+                    locationSpecifier(canvas, column, row, piece.pieceSrc) //  TODO: fix bug
+                }
+            }
+        }
+        //locationSpecifier(canvas, 0, 0, R.drawable.white_rook)
+        //locationSpecifier(canvas, 0, 1, R.drawable.white_pawn)
     }
 
     private fun locationSpecifier(canvas: Canvas?, column: Int, row: Int, pieceNum: Int){
