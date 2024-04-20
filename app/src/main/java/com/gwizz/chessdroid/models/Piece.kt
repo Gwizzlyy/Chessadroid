@@ -4,6 +4,6 @@ import com.gwizz.chessdroid.Player
 import com.gwizz.chessdroid.Rank
 
 data class Piece(val column: Int, val row: Int, val player: Player, val rank: Rank,
-                 val pieceSrc: Int){
+                 val pieceID: Int){
 
 }

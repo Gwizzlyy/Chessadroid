@@ -17,11 +17,11 @@ class ChessModel {
             inventory.add(Piece(0 + i * 7, 0, Player.WHITE, Rank.ROOK, R.drawable.white_rook))
             inventory.add(Piece(0 + i * 7, 7, Player.BLACK, Rank.ROOK, R.drawable.black_rook))
 
-            inventory.add(Piece(0 + i * 7, 0, Player.WHITE, Rank.KNIGHT, R.drawable.white_knight))
-            inventory.add(Piece(0 + i * 7, 7, Player.BLACK, Rank.KNIGHT, R.drawable.black_knight))
+            inventory.add(Piece(1 + i * 5, 0, Player.WHITE, Rank.KNIGHT, R.drawable.white_knight))
+            inventory.add(Piece(1 + i * 5, 7, Player.BLACK, Rank.KNIGHT, R.drawable.black_knight))
 
-            inventory.add(Piece(0 + i * 7, 0, Player.WHITE, Rank.BISHOP, R.drawable.white_bishop))
-            inventory.add(Piece(0 + i * 7, 7, Player.BLACK, Rank.BISHOP, R.drawable.black_bishop))
+            inventory.add(Piece(2 + i * 3, 0, Player.WHITE, Rank.BISHOP, R.drawable.white_bishop))
+            inventory.add(Piece(2 + i * 3, 7, Player.BLACK, Rank.BISHOP, R.drawable.black_bishop))
         }
         for (i in 0..7){
             inventory.add((Piece(i, 1,Player.WHITE, Rank.PAWN, R.drawable.white_pawn)))
@@ -34,7 +34,7 @@ class ChessModel {
         inventory.add(Piece(4, 7, Player.BLACK, Rank.KING, R.drawable.black_king))
     }
 
-    fun localise(column: Int, row: Int): Piece?{
+    fun pieceAt(column: Int, row: Int): Piece?{
         for (piece in inventory){
             if (column == piece.column && row == piece.row){
                 return piece

@@ -19,15 +19,15 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     final val pieceSrc = setOf(
         R.drawable.white_king,
         R.drawable.white_knight,
-        R.drawable.white_pawn,
-        R.drawable.white_queen,
         R.drawable.white_bishop,
         R.drawable.white_rook,
         R.drawable.black_bishop,
-        R.drawable.black_king,
         R.drawable.black_knight,
-        R.drawable.black_pawn,
         R.drawable.black_rook,
+        R.drawable.black_king,
+        R.drawable.white_queen,
+        R.drawable.black_pawn,
+        R.drawable.white_pawn,
         R.drawable.black_queen)
     private val brush = Paint()
     private final val bitmap = mutableMapOf<Int, Bitmap>()
@@ -41,7 +41,7 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         insertPieces(canvas)
     }
 
-    private fun initiateChessBoard(canvas: Canvas?){
+    private fun initiateChessBoard(canvas: Canvas?){  //  Drawing the checkered layout.
 
         for (i in 0..7) {
             for (j in 0..7) {
@@ -63,23 +63,24 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     private fun insertPieces(canvas: Canvas?){
         val chessModel = ChessModel()
         chessModel.reset()
-
         for (row in 0..7){
-            for (column in 0..7){
-                val piece = chessModel.localise(column, row)
+            for (col in 0..7){
+                val piece = chessModel.pieceAt(col, row)
                 if (piece != null){
-                    locationSpecifier(canvas, column, row, piece.pieceSrc) //  TODO: fix bug
+                    locationSpecifier(canvas, col, row, piece.pieceID)
+                    //  issues with white_queen, black_king
                 }
             }
         }
-        //locationSpecifier(canvas, 0, 0, R.drawable.white_rook)
+        //locationSpecifier(canvas, 0, 0, piece)
         //locationSpecifier(canvas, 0, 1, R.drawable.white_pawn)
+        //locationSpecifier(canvas, 1, 0, R.drawable.white_knight)
     }
 
     private fun locationSpecifier(canvas: Canvas?, column: Int, row: Int, pieceNum: Int){
         val map = bitmap[pieceNum]!!
         canvas?.drawBitmap(map, null, RectF(initX + column * rectangleSize,
-            initY + (7 - row) * rectangleSize, (column + 1) * rectangleSize,
-            initY + ((7 - row)+ 1) * rectangleSize), brush)
+            initY + (7 - row) * rectangleSize,initX + (column + 1) * rectangleSize,
+            initY + ((7 - row) + 1) * rectangleSize), brush)
     }
 }
