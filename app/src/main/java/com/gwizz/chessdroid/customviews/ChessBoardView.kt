@@ -46,7 +46,7 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         insertPieces(canvas)
     }
 
-    private fun initiateChessBoard(canvas: Canvas?){  //  Drawing the checkered layout.
+    private fun initiateChessBoard(canvas: Canvas?){  //  Drawing the checkered layout. test
         for (i in 0..7) {
             for (j in 0..7) {
                 paintSquare(canvas, i, j, (i + j) % 2 == 1)
