@@ -31,6 +31,8 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         R.drawable.black_queen)
     private val brush = Paint()
     private final val bitmap = mutableMapOf<Int, Bitmap>()
+    private final val dBlue = Color.rgb(113,148,170)
+    private final val lBlue = Color.rgb(212,224,228)
 
     init {
         populateMap()
@@ -42,14 +44,9 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     }
 
     private fun initiateChessBoard(canvas: Canvas?){  //  Drawing the checkered layout.
-
         for (i in 0..7) {
             for (j in 0..7) {
-                brush.color = if ((i + j) % 2 == 1) Color.rgb(113,148,170) else
-                    Color.rgb(212,224,228)
-                canvas?.drawRect(initX + i * rectangleSize, initY + j * rectangleSize,
-                    initX + (i + 1)* rectangleSize, initY + (j + 1) * rectangleSize,
-                    brush)
+                paintSquare(canvas, i, j, (i + j) % 2 == 1)
             }
         }
     }
@@ -60,21 +57,16 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         }
     }
 
-    private fun insertPieces(canvas: Canvas?){
+    private fun insertPieces(canvas: Canvas?){  //  Fetching info from ChessModel and populating
         val chessModel = ChessModel()
         chessModel.reset()
         for (row in 0..7){
             for (col in 0..7){
-                val piece = chessModel.pieceAt(col, row)
-                if (piece != null){
-                    locationSpecifier(canvas, col, row, piece.pieceID)
-                    //  issues with white_queen, black_king
+                chessModel.pieceAt(col, row)?.let {  //  "let" checks for null 🤷🏻‍♂️
+                    locationSpecifier(canvas, col, row, it.pieceID)
                 }
             }
         }
-        //locationSpecifier(canvas, 0, 0, piece)
-        //locationSpecifier(canvas, 0, 1, R.drawable.white_pawn)
-        //locationSpecifier(canvas, 1, 0, R.drawable.white_knight)
     }
 
     private fun locationSpecifier(canvas: Canvas?, column: Int, row: Int, pieceNum: Int){
@@ -82,5 +74,12 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         canvas?.drawBitmap(map, null, RectF(initX + column * rectangleSize,
             initY + (7 - row) * rectangleSize,initX + (column + 1) * rectangleSize,
             initY + ((7 - row) + 1) * rectangleSize), brush)
+    }
+
+    private fun paintSquare(canvas: Canvas?, column: Int, row: Int, isDark: Boolean){
+        brush.color = if (isDark) dBlue else lBlue
+        canvas?.drawRect(initX + column * rectangleSize, initY + row * rectangleSize,
+            initX + (column + 1)* rectangleSize, initY + (row + 1) * rectangleSize,
+            brush)
     }
 }
