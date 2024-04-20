@@ -10,6 +10,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import com.gwizz.chessdroid.R
+import com.gwizz.chessdroid.interfaces.ChessInterface
 import com.gwizz.chessdroid.models.ChessModel
 
 class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) {
@@ -33,6 +34,8 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     private final val bitmap = mutableMapOf<Int, Bitmap>()
     private final val dBlue = Color.rgb(113,148,170)
     private final val lBlue = Color.rgb(212,224,228)
+
+    var chessInterface: ChessInterface? = null
 
     init {
         populateMap()
@@ -58,11 +61,9 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     }
 
     private fun insertPieces(canvas: Canvas?){  //  Fetching info from ChessModel and populating
-        val chessModel = ChessModel()
-        chessModel.reset()
         for (row in 0..7){
             for (col in 0..7){
-                chessModel.pieceAt(col, row)?.let {  //  "let" checks for null 🤷🏻‍♂️
+                chessInterface?.pieceAt(col, row)?.let {  //  "let" checks for null 🤷🏻‍♂️
                     locationSpecifier(canvas, col, row, it.pieceID)
                 }
             }
