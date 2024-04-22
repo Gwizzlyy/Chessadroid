@@ -8,16 +8,20 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import com.gwizz.chessdroid.R
+import com.gwizz.chessdroid.TAG
 import com.gwizz.chessdroid.interfaces.ChessInterface
 import com.gwizz.chessdroid.models.ChessModel
+import kotlin.math.min
 
 class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) {
-    private final val initX = 20f
-    private final val initY = 200f
-    private final val rectangleSize = 130f
-    final val pieceSrc = setOf(
+    private final val viewScale = .9f  //  to make the board bigger or smaller
+    private final var initX = 20f  //  margin on the sides of the board
+    private final var initY = 200f  //  Distance (aka margin) at top and bottom
+    private final var rectangleSize = 130f
+    private final val pieceSrc = setOf(
         R.drawable.white_king,
         R.drawable.white_knight,
         R.drawable.white_bishop,
@@ -42,6 +46,12 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     }
 
     override fun onDraw(canvas: Canvas) {
+        Log.d(TAG, "(${width}), (${height})")
+        val minimum = min(width, height) * viewScale
+        rectangleSize = minimum / 8f
+        initX = (width - minimum) / 2f
+        initY = (height - minimum) / 2f
+
         initiateChessBoard(canvas)
         insertPieces(canvas)
     }

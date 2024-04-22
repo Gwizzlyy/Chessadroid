@@ -8,7 +8,7 @@ import com.gwizz.chessdroid.interfaces.ChessInterface
 import com.gwizz.chessdroid.models.ChessModel
 import com.gwizz.chessdroid.models.Piece
 
-
+const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity(), ChessInterface {
 
     var chessModel = ChessModel()
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), ChessInterface {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        val chessBoardView = findViewById<ChessBoardView>(R.id.mainView)
+        val chessBoardView = findViewById<ChessBoardView>(R.id.mainView)  //  finding the view
         chessBoardView.chessInterface = this //  connecting interface and the view
     }
 
