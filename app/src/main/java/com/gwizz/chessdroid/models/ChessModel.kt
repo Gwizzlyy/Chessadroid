@@ -54,8 +54,11 @@ class ChessModel {
             }
             inventory.remove(it)
         }
-        movingPiece.column = toColumn
-        movingPiece.row = toRow
+
+        inventory.remove(movingPiece)
+        inventory.add(Piece(toColumn, toRow, movingPiece.player, movingPiece.rank, movingPiece.pieceID))
+//        movingPiece.column = toColumn
+//        movingPiece.row = toRow
 
     }
 

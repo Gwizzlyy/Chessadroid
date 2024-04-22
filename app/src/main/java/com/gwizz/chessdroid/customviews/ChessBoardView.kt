@@ -42,6 +42,8 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     private var fromColumn: Int = -1
     private var fromRow: Int = -1
     var chessInterface: ChessInterface? = null
+    private var floatingPieceX = -1f
+    private var floatingPieceY = -1f
 
     init {
         populateMap()
@@ -75,7 +77,9 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
 
             }
             MotionEvent.ACTION_MOVE -> {
-                Log.d(TAG, "move")
+                floatingPieceX = event.x
+                floatingPieceY = event.y
+                invalidate()
             }
         }
         return true
@@ -98,10 +102,20 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     private fun insertPieces(canvas: Canvas){  //  Fetching info from ChessModel and populating
         for (row in 0..7){
             for (col in 0..7){
-                chessInterface?.pieceAt(col, row)?.let {  //  "let" checks for null 🤷🏻‍♂️
-                    locationSpecifier(canvas, col, row, it.pieceID)
+                if (row != fromRow || col != fromColumn) {
+                    chessInterface?.pieceAt(col, row)?.let {  //  "let" checks for null 🤷🏻‍♂️
+                        locationSpecifier(canvas, col, row, it.pieceID)
+                }
+
                 }
             }
+        }
+
+        chessInterface?.pieceAt(fromColumn, fromRow)?.let {
+            val map = bitmap[it.pieceID]!!
+            canvas.drawBitmap(map, null, RectF(floatingPieceX - rectangleSize/2,
+                floatingPieceY - rectangleSize/2,floatingPieceX + rectangleSize/2,
+                floatingPieceY + rectangleSize/2), brush)
         }
     }
 
