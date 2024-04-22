@@ -15,6 +15,7 @@ import com.gwizz.chessdroid.R
 import com.gwizz.chessdroid.TAG
 import com.gwizz.chessdroid.interfaces.ChessInterface
 import com.gwizz.chessdroid.models.ChessModel
+import com.gwizz.chessdroid.models.Piece
 import kotlin.math.min
 
 class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) {
@@ -44,6 +45,8 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     var chessInterface: ChessInterface? = null
     private var floatingPieceX = -1f
     private var floatingPieceY = -1f
+    private var floatingPieceMap: Bitmap? = null
+    private var floatingPiece: Piece? = null
 
     init {
         populateMap()
@@ -67,6 +70,11 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
                 fromColumn = ((event.x - initX) / rectangleSize).toInt()
                 fromRow = 7 - ((event.y - initY) / rectangleSize).toInt()  // 7 is to counter sys
 
+                chessInterface?.pieceAt(fromColumn, fromRow)?.let {
+                    floatingPiece = it
+                    floatingPieceMap = bitmap[it.pieceID]
+                }
+
 
             }
             MotionEvent.ACTION_UP -> {
@@ -74,6 +82,8 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
                 val row = 7 - ((event.y - initY) / rectangleSize).toInt()  // 7 is to counter sys
                 Log.d(TAG, "From (${fromColumn}, ${fromRow}) to ($column, $row)")
                 chessInterface?.movePiece(fromColumn, fromRow, column, row)
+                floatingPiece = null
+                floatingPieceMap = null
 
             }
             MotionEvent.ACTION_MOVE -> {
@@ -102,21 +112,19 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     private fun insertPieces(canvas: Canvas){  //  Fetching info from ChessModel and populating
         for (row in 0..7){
             for (col in 0..7){
-                if (row != fromRow || col != fromColumn) {
-                    chessInterface?.pieceAt(col, row)?.let {  //  "let" checks for null 🤷🏻‍♂️
+                chessInterface?.pieceAt(col, row)?.let {
+                    if (it != floatingPiece){  //  is this a visual bug?
                         locationSpecifier(canvas, col, row, it.pieceID)
-                }
-
+                    }
                 }
             }
         }
-
-        chessInterface?.pieceAt(fromColumn, fromRow)?.let {
-            val map = bitmap[it.pieceID]!!
-            canvas.drawBitmap(map, null, RectF(floatingPieceX - rectangleSize/2,
+        floatingPieceMap?.let {
+            canvas.drawBitmap(it, null, RectF(floatingPieceX - rectangleSize/2,
                 floatingPieceY - rectangleSize/2,floatingPieceX + rectangleSize/2,
                 floatingPieceY + rectangleSize/2), brush)
         }
+
     }
 
     private fun locationSpecifier(canvas: Canvas, column: Int, row: Int, pieceNum: Int){
