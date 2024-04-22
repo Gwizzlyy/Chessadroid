@@ -1,14 +1,19 @@
 package com.gwizz.chessdroid.models
 
+import android.util.Log
 import com.gwizz.chessdroid.Player
 import com.gwizz.chessdroid.R
 import com.gwizz.chessdroid.Rank
+import com.gwizz.chessdroid.TAG
 
 class ChessModel {
     private var inventory = mutableSetOf<Piece>()
 
     init {
         reset()
+        Log.d(TAG, inventory.size.toString())
+        //  TODO: test movePiece()
+        Log.d(TAG, inventory.size.toString())
     }
 
     fun reset(){
@@ -41,5 +46,19 @@ class ChessModel {
             }
         }
         return null
+    }
+
+    fun movePiece(fromColumn: Int, fromRow: Int, toColumn: Int, toRow: Int){
+        val movingPiece = pieceAt(fromColumn, fromRow) ?: return
+
+        pieceAt(toColumn, toRow)?.let {
+            if (it.player == movingPiece.player){
+                return
+            }
+            inventory.remove(it)
+        }
+        movingPiece.column = toColumn
+        movingPiece.row = toRow
+
     }
 }

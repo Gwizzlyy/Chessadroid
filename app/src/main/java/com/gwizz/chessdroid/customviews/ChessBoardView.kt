@@ -46,7 +46,7 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     }
 
     override fun onDraw(canvas: Canvas) {
-        Log.d(TAG, "(${width}), (${height})")
+        canvas ?: return
         val minimum = min(width, height) * viewScale
         rectangleSize = minimum / 8f
         initX = (width - minimum) / 2f
@@ -56,7 +56,7 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         insertPieces(canvas)
     }
 
-    private fun initiateChessBoard(canvas: Canvas?){  //  Drawing the checkered layout. test
+    private fun initiateChessBoard(canvas: Canvas){  //  Drawing the checkered layout. test
         for (i in 0..7) {
             for (j in 0..7) {
                 paintSquare(canvas, i, j, (i + j) % 2 == 1)
@@ -70,7 +70,7 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         }
     }
 
-    private fun insertPieces(canvas: Canvas?){  //  Fetching info from ChessModel and populating
+    private fun insertPieces(canvas: Canvas){  //  Fetching info from ChessModel and populating
         for (row in 0..7){
             for (col in 0..7){
                 chessInterface?.pieceAt(col, row)?.let {  //  "let" checks for null 🤷🏻‍♂️
@@ -80,16 +80,16 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         }
     }
 
-    private fun locationSpecifier(canvas: Canvas?, column: Int, row: Int, pieceNum: Int){
+    private fun locationSpecifier(canvas: Canvas, column: Int, row: Int, pieceNum: Int){
         val map = bitmap[pieceNum]!!
-        canvas?.drawBitmap(map, null, RectF(initX + column * rectangleSize,
+        canvas.drawBitmap(map, null, RectF(initX + column * rectangleSize,
             initY + (7 - row) * rectangleSize,initX + (column + 1) * rectangleSize,
             initY + ((7 - row) + 1) * rectangleSize), brush)
     }
 
-    private fun paintSquare(canvas: Canvas?, column: Int, row: Int, isDark: Boolean){
+    private fun paintSquare(canvas: Canvas, column: Int, row: Int, isDark: Boolean){
         brush.color = if (isDark) dBlue else lBlue
-        canvas?.drawRect(initX + column * rectangleSize, initY + row * rectangleSize,
+        canvas.drawRect(initX + column * rectangleSize, initY + row * rectangleSize,
             initX + (column + 1)* rectangleSize, initY + (row + 1) * rectangleSize,
             brush)
     }
