@@ -11,9 +11,6 @@ class ChessModel {
 
     init {
         reset()
-        Log.d(TAG, inventory.size.toString())
-        //  TODO: test movePiece()
-        Log.d(TAG, inventory.size.toString())
     }
 
     fun reset(){
@@ -61,4 +58,5 @@ class ChessModel {
         movingPiece.row = toRow
 
     }
+
 }

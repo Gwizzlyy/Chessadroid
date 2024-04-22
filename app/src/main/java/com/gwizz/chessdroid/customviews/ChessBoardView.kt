@@ -9,6 +9,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import com.gwizz.chessdroid.R
 import com.gwizz.chessdroid.TAG
@@ -17,11 +18,11 @@ import com.gwizz.chessdroid.models.ChessModel
 import kotlin.math.min
 
 class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) {
-    private final val viewScale = .9f  //  to make the board bigger or smaller
-    private final var initX = 20f  //  margin on the sides of the board
-    private final var initY = 200f  //  Distance (aka margin) at top and bottom
-    private final var rectangleSize = 130f
-    private final val pieceSrc = setOf(
+    private val viewScale = .9f  //  to make the board bigger or smaller
+    private var initX = 20f  //  margin on the sides of the board
+    private var initY = 200f  //  Distance (aka margin) at top and bottom
+    private var rectangleSize = 130f
+    private val pieceSrc = setOf(
         R.drawable.white_king,
         R.drawable.white_knight,
         R.drawable.white_bishop,
@@ -35,10 +36,11 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         R.drawable.white_pawn,
         R.drawable.black_queen)
     private val brush = Paint()
-    private final val bitmap = mutableMapOf<Int, Bitmap>()
-    private final val dBlue = Color.rgb(113,148,170)
-    private final val lBlue = Color.rgb(212,224,228)
-
+    private val bitmap = mutableMapOf<Int, Bitmap>()
+    private val dBlue = Color.rgb(113,148,170)
+    private val lBlue = Color.rgb(212,224,228)
+    private var fromColumn: Int = -1
+    private var fromRow: Int = -1
     var chessInterface: ChessInterface? = null
 
     init {
@@ -54,6 +56,29 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
 
         initiateChessBoard(canvas)
         insertPieces(canvas)
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        event ?: return false
+        when (event.action){
+            MotionEvent.ACTION_DOWN -> {
+                fromColumn = ((event.x - initX) / rectangleSize).toInt()
+                fromRow = 7 - ((event.y - initY) / rectangleSize).toInt()  // 7 is to counter sys
+
+
+            }
+            MotionEvent.ACTION_UP -> {
+                val column = ((event.x - initX) / rectangleSize).toInt()
+                val row = 7 - ((event.y - initY) / rectangleSize).toInt()  // 7 is to counter sys
+                Log.d(TAG, "From (${fromColumn}, ${fromRow}) to ($column, $row)")
+                chessInterface?.movePiece(fromColumn, fromRow, column, row)
+
+            }
+            MotionEvent.ACTION_MOVE -> {
+                Log.d(TAG, "move")
+            }
+        }
+        return true
     }
 
     private fun initiateChessBoard(canvas: Canvas){  //  Drawing the checkered layout. test

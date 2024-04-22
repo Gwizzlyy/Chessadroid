@@ -16,11 +16,16 @@ class MainActivity : AppCompatActivity(), ChessInterface {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        val chessBoardView = findViewById<ChessBoardView>(R.id.mainView)  //  finding the view
-        chessBoardView.chessInterface = this //  connecting interface and the view
+        //  Establishing connection between interface
+        findViewById<ChessBoardView>(R.id.mainView).chessInterface = this
     }
 
     override fun pieceAt(column: Int, row: Int): Piece? {
         return chessModel.pieceAt(column, row)
+    }
+
+    override fun movePiece(fromColumn: Int, fromRow: Int, toColumn: Int, toRow: Int) {
+        chessModel.movePiece(fromColumn, fromRow, toColumn, toRow)
+        findViewById<ChessBoardView>(R.id.mainView).invalidate()
     }
 }
