@@ -18,12 +18,13 @@ import com.gwizz.chessdroid.models.ChessModel
 import com.gwizz.chessdroid.models.Piece
 import kotlin.math.min
 
+//  Homer s00045809
 class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) {
     private val viewScale = .9f  //  to make the board bigger or smaller
     private var initX = 20f  //  margin on the sides of the board
     private var initY = 200f  //  Distance (aka margin) at top and bottom
-    private var rectangleSize = 130f
-    private val pieceSrc = setOf(
+    private var rectangleSize = 130f  //  Determines the size of the rectangle
+    private val pieceSrc = setOf(  //  A set of all the IDs of the pieces to use when drawing board
         R.drawable.white_king,
         R.drawable.white_knight,
         R.drawable.white_bishop,
@@ -36,13 +37,18 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         R.drawable.black_pawn,
         R.drawable.white_pawn,
         R.drawable.black_queen)
+    //  Class to use on Bitmaps and canvases
     private val brush = Paint()
-    private val bitmap = mutableMapOf<Int, Bitmap>()
+    private val bitmap = mutableMapOf<Int, Bitmap>()  //  Bitmaps help display while specifying dimenstions
+    //  Colour values for the board
     private val dBlue = Color.rgb(113,148,170)
     private val lBlue = Color.rgb(212,224,228)
+    //  Initiate an invalid Column x Row values to later reset and modify when moving pieces
     private var fromColumn: Int = -1
     private var fromRow: Int = -1
+    //  Linking the chess interface with the view
     var chessInterface: ChessInterface? = null
+    //  To allow the piece hover while moving
     private var floatingPieceX = -1f
     private var floatingPieceY = -1f
     private var floatingPieceMap: Bitmap? = null
@@ -51,7 +57,7 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
     init {
         populateMap()
     }
-
+    //  Activity Life Cycle to show the default board view
     override fun onDraw(canvas: Canvas) {
         canvas ?: return
         val minimum = min(width, height) * viewScale
@@ -62,21 +68,21 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         initiateChessBoard(canvas)
         insertPieces(canvas)
     }
-
+    //  Built in function like onClick but allows movement, up, and down detection.
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         event ?: return false
         when (event.action){
+            //  To know which piece is currently being held
             MotionEvent.ACTION_DOWN -> {
                 fromColumn = ((event.x - initX) / rectangleSize).toInt()
-                fromRow = 7 - ((event.y - initY) / rectangleSize).toInt()  // 7 is to counter sys
+                fromRow = 7 - ((event.y - initY) / rectangleSize).toInt()  // 7 is to inverse
 
                 chessInterface?.pieceAt(fromColumn, fromRow)?.let {
                     floatingPiece = it
                     floatingPieceMap = bitmap[it.pieceID]
                 }
-
-
             }
+            //  Gives value for where the piece was dropped
             MotionEvent.ACTION_UP -> {
                 val column = ((event.x - initX) / rectangleSize).toInt()
                 val row = 7 - ((event.y - initY) / rectangleSize).toInt()  // 7 is to counter sys
@@ -86,6 +92,7 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
                 floatingPieceMap = null
 
             }
+            //  Detects movement and allows us to use the floating piece animation
             MotionEvent.ACTION_MOVE -> {
                 floatingPieceX = event.x
                 floatingPieceY = event.y
@@ -95,30 +102,31 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
         return true
     }
 
-    private fun initiateChessBoard(canvas: Canvas){  //  Drawing the checkered layout. test
+    private fun initiateChessBoard(canvas: Canvas){  //  Drawing the checkered layout.
         for (i in 0..7) {
             for (j in 0..7) {
                 paintSquare(canvas, i, j, (i + j) % 2 == 1)
             }
         }
     }
-
+    //  Taking each piece and populating the bitmap with the values
     private fun populateMap(){
         pieceSrc.forEach {
             bitmap[it] = BitmapFactory.decodeResource(resources, it)
         }
     }
-
+    //  Model communicates to send piece proper location on the board
     private fun insertPieces(canvas: Canvas){  //  Fetching info from ChessModel and populating
         for (row in 0..7){
             for (col in 0..7){
                 chessInterface?.pieceAt(col, row)?.let {
-                    if (it != floatingPiece){  //  is this a visual bug?
+                    if (it != floatingPiece){
                         locationSpecifier(canvas, col, row, it.pieceID)
                     }
                 }
             }
         }
+        //  Floating animation when moving a piece
         floatingPieceMap?.let {
             canvas.drawBitmap(it, null, RectF(floatingPieceX - rectangleSize/2,
                 floatingPieceY - rectangleSize/2,floatingPieceX + rectangleSize/2,
@@ -133,7 +141,7 @@ class ChessBoardView(context: Context?, set: AttributeSet?): View(context, set) 
             initY + (7 - row) * rectangleSize,initX + (column + 1) * rectangleSize,
             initY + ((7 - row) + 1) * rectangleSize), brush)
     }
-
+    //  Where colour values are fed and drawn
     private fun paintSquare(canvas: Canvas, column: Int, row: Int, isDark: Boolean){
         brush.color = if (isDark) dBlue else lBlue
         canvas.drawRect(initX + column * rectangleSize, initY + row * rectangleSize,

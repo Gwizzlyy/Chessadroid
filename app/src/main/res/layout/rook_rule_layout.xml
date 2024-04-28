@@ -6,7 +6,6 @@
     android:padding="16dp"
     android:background="#F5F5F5">
 
-    <!-- Title -->
     <TextView
         android:id="@+id/tvKRHeader"
         android:layout_width="match_parent"
@@ -25,7 +24,7 @@
         android:gravity="start"
         android:layout_marginBottom="16dp">
 
-        <!-- Pawn Move Animation -->
+
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -33,7 +32,7 @@
             android:scaleType="fitCenter"
             android:layout_marginEnd="16dp"/>
 
-        <!-- Rule 1 Text -->
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -52,7 +51,7 @@
         android:gravity="start"
         android:layout_marginBottom="16dp">
 
-        <!-- Pawn Two Squares Animation -->
+
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -60,7 +59,7 @@
             android:scaleType="fitCenter"
             android:layout_marginEnd="16dp"/>
 
-        <!-- Rule 2 Text -->
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -70,7 +69,7 @@
             android:textColor="#000000"/>
 
     </LinearLayout>
-
+    <!-- Rule 3 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,7 +77,6 @@
         android:gravity="start"
         android:layout_marginBottom="16dp">
 
-        <!-- Pawn Two Squares Animation -->
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -86,7 +84,6 @@
             android:scaleType="fitCenter"
             android:layout_marginEnd="16dp"/>
 
-        <!-- Rule 3 Text -->
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -97,10 +94,5 @@
 
     </LinearLayout>
 
-
-
-
-
-    <!-- Add more rules with picture or animation -->
 
 </LinearLayout>

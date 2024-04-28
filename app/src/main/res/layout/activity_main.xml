@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Homer s00045809
+Since I made my own view, I call it here-->
+
 <com.gwizz.chessdroid.customviews.ChessBoardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mainView"

@@ -5,14 +5,14 @@ import com.gwizz.chessdroid.Player
 import com.gwizz.chessdroid.R
 import com.gwizz.chessdroid.Rank
 import com.gwizz.chessdroid.TAG
-
+//  Homer s00045809
 class ChessModel {
     private var inventory = mutableSetOf<Piece>()
 
     init {
         reset()
     }
-
+    //  Location details and image values of each piece
     fun reset(){
         inventory.removeAll(inventory)
         for (i in 0..1){
@@ -35,7 +35,7 @@ class ChessModel {
         inventory.add(Piece(4, 0, Player.WHITE, Rank.KING, R.drawable.white_king))
         inventory.add(Piece(4, 7, Player.BLACK, Rank.KING, R.drawable.black_king))
     }
-
+    //  Checks if the piece matches the data in the inventory; where the piece resides naturally
     fun pieceAt(column: Int, row: Int): Piece?{
         for (piece in inventory){
             if (column == piece.column && row == piece.row){
@@ -44,7 +44,7 @@ class ChessModel {
         }
         return null
     }
-
+    //  Allows users to update the values of column and row of a piece
     fun movePiece(fromColumn: Int, fromRow: Int, toColumn: Int, toRow: Int){
         if (fromColumn == toColumn && fromRow == toRow) return
         val movingPiece = pieceAt(fromColumn, fromRow) ?: return
@@ -58,9 +58,6 @@ class ChessModel {
 
         inventory.remove(movingPiece)
         inventory.add(Piece(toColumn, toRow, movingPiece.player, movingPiece.rank, movingPiece.pieceID))
-//        movingPiece.column = toColumn
-//        movingPiece.row = toRow
-
     }
 
 }

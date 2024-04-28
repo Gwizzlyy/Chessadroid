@@ -8,7 +8,8 @@ import com.gwizz.chessdroid.interfaces.ChessInterface
 import com.gwizz.chessdroid.models.ChessModel
 import com.gwizz.chessdroid.models.Piece
 
-const val TAG = "MainActivity"
+const val TAG = "MainActivity" // To use for Logcat debugging
+//  MainActivity is the controller that brings the view and model together. Interface, view, and models are linked and used here
 class MainActivity : AppCompatActivity(), ChessInterface {
 
     var chessModel = ChessModel()
